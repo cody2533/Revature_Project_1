@@ -1,0 +1,40 @@
+com/ex/pojos/Employee.java
+ com.ex.pojos.Employee
+com/ex/pojos/Request.java
+ com.ex.pojos.Request
+com/ex/screens/HomeScreen.java
+ com.ex.screens.HomeScreen
+com/ex/services/Service.java
+ com.ex.services.Service
+com/ex/controllers/ManagerController.java
+ com.ex.controllers.ManagerController
+com/ex/AbstractApplication.java
+ com.ex.AbstractApplication
+com/ex/dao/Dao.java
+ com.ex.dao.Dao
+com/ex/pojos/Manager.java
+ com.ex.pojos.Manager
+com/ex/dao/MongoDao.java
+ com.ex.dao.MongoDao
+com/ex/services/RequestService.java
+ com.ex.services.RequestService
+com/ex/services/EmployeeService.java
+ com.ex.services.EmployeeService
+com/ex/services/ManagerService.java
+ com.ex.services.ManagerService
+com/ex/controllers/EmployeeController.java
+ com.ex.controllers.EmployeeController
+com/ex/screens/LogInScreen.java
+ com.ex.screens.LogInScreen
+com/ex/screens/RequestsScreen.java
+ com.ex.screens.RequestsScreen
+com/ex/screens/UserScreen.java
+ com.ex.screens.UserScreen
+com/ex/controllers/ScreenController.java
+ com.ex.controllers.ScreenController
+com/ex/controllers/RequestController.java
+ com.ex.controllers.RequestController
+com/ex/Main.java
+ com.ex.Main
+com/ex/MyApplication.java
+ com.ex.MyApplication

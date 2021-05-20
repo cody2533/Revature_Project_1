@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Requests</title>
+</head>
+<body>
+<h1>Reimbursement Requests</h1>
+<a href="/EmployeeHome">Home</a><br><br>
+<Table style="width:50%">
+
+</Table>
+
+
+<script>
+  function loadDoc() {
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                var response = JSON.parse(this.responseText);
+                let table = document.querySelector("table");
+                let data = Object.keys(response[0]);
+                generateTableHead(table, data);
+                generateTable(table, response);
+            }
+      };
+      xhttp.open("POST", "/RequestEmployeeData", true);
+      xhttp.send();
+}
+function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+
+function generateTable(table, data) {
+  for (let element of data) {
+    let row = table.insertRow();
+    for (key in element) {
+          let cell = row.insertCell();
+          let text = document.createTextNode(element[key]);
+          if (element.status === "Pending"){
+               row.setAttribute("name","Pending");
+          }
+          else if (element.status === "Approved"){
+               row.setAttribute("name","Approved");
+          }
+          else if (element.status === "Denied"){
+               row.setAttribute("name","Denied");
+          }
+      cell.appendChild(text);
+    }
+  }
+}
+
+function All(){
+    let p = document.getElementsByName("P");
+    for (var index = 0;index<p.length;index++){
+        p[index].style.display = "table-row";
+    }
+    let a = document.getElementsByName("A");
+    for (var index = 0;index<a.length;index++){
+        a[index].style.display = "table-row";
+    }
+    let d = document.getElementsByName("D");
+    for (var index = 0;index<d.length;index++){
+        d[index].style.display = "table-row";
+    }
+}
+
+loadDoc();
+All();
+</script>
+</body>
+</html>

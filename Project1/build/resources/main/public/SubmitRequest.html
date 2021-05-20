@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Requests</title>
+</head>
+<body>
+<h1>Submit a Request:</h1>
+<form method="post" action="/Employee/SubmitRequest">
+
+  <input type="hidden" id="userName" name="userName" value="USER">
+
+  <label for="amount">Amount:</label><br>
+  <input type="number" id="amount" name="amount" min="0"><br><br>
+
+  <label for="reason">Reason:</label><br>
+  <input type="text" id="reason" name="reason"><br><br>
+
+
+  <input type="submit" value="Submit the request"> <br><br>
+</form>
+<a href="/EmployeeHome"> Home </a>
+<script src="SubmitRequest.js"></script>
+</body>
+</html>

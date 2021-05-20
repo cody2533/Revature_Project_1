@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<a href="/ManagerHome"> Home</a> <br> <br>
+
+<Table style="width:50%">
+
+</Table>
+
+<script>
+  function loadDoc() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                let response = JSON.parse(this.responseText);
+                let table = document.querySelector("table");
+                let data = Object.keys(response[0]);
+                generateTableHead(table, data);
+                generateTable(table, response);
+            }
+      };
+      xhttp.open("POST", "/RequestManagerData", true);
+      xhttp.send();
+}
+var currentUser;
+function loadUser() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                let response = JSON.parse(this.responseText);
+                document.getElementById("currentUser").innerHTML =
+                response.username;
+            }
+      };
+      xhttp.open("POST", "/ManagerData", true);
+      xhttp.send();
+}
+
+function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+
+function generateTable(table, data) {
+  let total = 0;
+  for (let element of data) {
+    let row = table.insertRow();
+    for (key in element) {
+          let cell = row.insertCell();
+          let text = document.createTextNode(element[key]);
+          if (element.status === "Pending"){
+               row.setAttribute("name","Pending");
+          }
+         else if (element.status === 'a'){
+               row.setAttribute("name","A");
+         }
+         else{
+                row.setAttribute("name","D");
+         }
+      cell.appendChild(text);
+    }
+
+    if (element.status === "Pending"){
+        let approveCell = row.insertCell();
+        let approveButton = document.createElement("BUTTON");
+        approveButton.innerHTML = "Approve";
+        approveButton.setAttribute("id","approveButton"+total)
+        approveButton.setAttribute("onclick","Approve(id)");
+        approveCell.appendChild(approveButton);
+
+
+        let denyCell = row.insertCell();
+        let denyButton = document.createElement("BUTTON");
+        denyButton.innerHTML = "Deny";
+        denyButton.setAttribute("id","denyButton"+total);
+        denyButton.setAttribute("onclick","Deny(id)");
+        denyCell.appendChild(denyButton);
+    }
+    row.setAttribute("id","row"+total);
+    total += 1;
+  }
+}
+
+function Approve(id){
+    let index = id.replace("approveButton","");
+    let row = document.getElementById("row"+index);
+
+    let form = document.createElement("FORM");
+    form.setAttribute("method","post");
+    form.setAttribute("action","/Manager/Requests");
+
+    var userName = document.createElement("input");
+    userName.setAttribute("type","text");
+    userName.setAttribute("name","userName");
+
+    var amount = document.createElement("input");
+    amount.setAttribute("type","text");
+    amount.setAttribute("name","amount");
+
+    var reason = document.createElement("input");
+    reason.setAttribute("type","text");
+    reason.setAttribute("name","reason");
+
+    var status = document.createElement("input");
+    status.setAttribute("type","text");
+    status.setAttribute("name","status");
+
+    userName.setAttribute("value",row.cells[0].innerHTML);
+    amount.setAttribute("value",row.cells[2].innerHTML);
+    reason.setAttribute("value",row.cells[1].innerHTML);
+    status.setAttribute("value","Approve");
+
+    let button = document.getElementById(id);
+
+    form.appendChild(userName);
+    form.appendChild(amount);
+    form.appendChild(reason);
+    form.appendChild(status);
+    form.appendChild(button);
+
+    document.body.appendChild(form);
+}
+
+function Deny(id){
+    let index = id.replace("denyButton","");
+    let row = document.getElementById("row"+index);
+
+    let form = document.createElement("FORM");
+    form.setAttribute("method","post");
+    form.setAttribute("action","/Manager/Requests");
+
+    var userName = document.createElement("input");
+    userName.setAttribute("type","text");
+    userName.setAttribute("name","userName");
+
+    var amount = document.createElement("input");
+    amount.setAttribute("type","text");
+    amount.setAttribute("name","amount");
+
+    var reason = document.createElement("input");
+    reason.setAttribute("type","text");
+    reason.setAttribute("name","reason");
+
+    var status = document.createElement("input");
+    status.setAttribute("type","text");
+    status.setAttribute("name","status");
+
+    userName.setAttribute("value",row.cells[0].innerHTML);
+    amount.setAttribute("value",row.cells[2].innerHTML);
+    reason.setAttribute("value",row.cells[1].innerHTML);
+    status.setAttribute("value","Denied");
+
+    let button = document.getElementById(id);
+
+    form.appendChild(userName);
+    form.appendChild(amount);
+    form.appendChild(reason);
+    form.appendChild(status);
+    form.appendChild(button);
+
+    document.body.appendChild(form);
+}
+
+
+
+function Pending(){
+    let p = document.getElementsByName('P');
+    for (var index = 0;index<p.length;index++){
+        p[index].style.display = "table-row";
+    }
+    let r = document.getElementsByName('R');
+    for (var index = 0;index<p.length;index++){
+        r[index].style.display = "none";
+    }
+}
+
+function Approved(){
+    let p = document.getElementsByName('P');
+    for (var index = 0;index<p.length;index++){
+        p[index].style.display = "none";
+    }
+    let r = document.getElementsByName('R');
+    for (var index = 0;index<p.length;index++){
+        r[index].style.display = "table-row";
+    }
+}
+
+function Both(){
+    let p = document.getElementsByName('P');
+    for (var index = 0;index<p.length;index++){
+        p[index].style.display = "table-row";
+    }
+    let r = document.getElementsByName('R');
+    for (var index = 0;index<p.length;index++){
+        r[index].style.display = "table-row";
+    }
+}
+
+loadUser();
+loadDoc();
+Pending();
+</script>
+
+</body>
+</html>

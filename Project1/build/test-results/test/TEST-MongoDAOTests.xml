@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MongoDAOTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-05-18T14:08:14" hostname="DESKTOP-R1CQAU0" time="0.307">
+  <properties/>
+  <testcase name="getManagers()" classname="MongoDAOTests" time="0.003"/>
+  <testcase name="getEmployees()" classname="MongoDAOTests" time="0.001"/>
+  <testcase name="updateEmployeePassword()" classname="MongoDAOTests" time="0.213"/>
+  <testcase name="createAndUpdateRequest()" classname="MongoDAOTests" time="0.056"/>
+  <testcase name="createAndGetManager()" classname="MongoDAOTests" time="0.018"/>
+  <testcase name="getRequests()" classname="MongoDAOTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

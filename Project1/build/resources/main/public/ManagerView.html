@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Employees</title>
+</head>
+<body>
+<h1>Current employees</h1>
+<a href="/ManagerHome">Home</a><br><br>
+<Table style="width:50%">
+
+</Table>
+
+<script>
+  function loadDoc() {
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                var response = JSON.parse(this.responseText);
+                let table = document.querySelector("table");
+                let data = Object.keys(response[0]);
+                generateTableHead(table, data);
+                generateTable(table, response);
+            }
+      };
+      xhttp.open("POST", "/EmployeeData", true);
+      xhttp.send();
+}
+function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  let th = document.createElement("th");
+  let text = document.createTextNode("userName");
+  th.appendChild(text);
+  row.appendChild(th);
+}
+
+function generateTable(table, data) {
+  for (let element of data) {
+    let row = table.insertRow();
+
+    let cell = row.insertCell();
+    let text = document.createTextNode(element["userName"]);
+    cell.appendChild(text);
+    }
+  }
+
+loadDoc();
+</script>
+</body>
+</html>
